@@ -4,6 +4,7 @@ namespace Starter\RestApiBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class ContentController
@@ -12,10 +13,19 @@ use FOS\RestBundle\View\View;
 class ContentController extends FOSRestController
 {
 
-    public function getContentAction()
+    /**
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getContentAction($id)
     {
-        $data = array('id' => 1, 'title' => 'test', 'body' => 'content');
-        $view = new View($data);
+        $em = $this->getDoctrine()->getManager();
+        $content = $em->getRepository('StarterRestApiBundle:Content')->find($id);
+
+        if ($content === null) {
+            throw new NotFoundHttpException();
+        }
+        $view = new View($content);
 
         return $this->get('fos_rest.view_handler')->handle($view);
     }
