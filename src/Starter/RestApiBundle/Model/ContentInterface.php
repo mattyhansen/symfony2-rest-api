@@ -2,22 +2,22 @@
 
 namespace Starter\RestApiBundle\Model;
 
-interface PageInterface
+interface ContentInterface
 {
 
     /**
-     * Returns Page title
+     * Returns Content title
      *
      * @return mixed
      */
     public function getTitle();
 
     /**
-     * Returns Page Content
+     * Returns Content Content
      *
      * @return mixed
      */
-    public function getContent();
+    public function getBody();
 
 
 }

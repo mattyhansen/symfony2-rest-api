@@ -2,15 +2,15 @@
 
 namespace Starter\RestApiBundle\Entity;
 
-use Starter\RestApiBundle\Model\PageInterface;
+use Starter\RestApiBundle\Model\ContentInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="Starter\RestApiBundle\Repository\PageRepository")
- * @ORM\Table(name="page")
+ * @ORM\Entity(repositoryClass="Starter\RestApiBundle\Repository\ContentRepository")
+ * @ORM\Table(name="content")
  */
-class Page implements PageInterface
+class Content implements ContentInterface
 {
     /**
      * @var integer
@@ -31,9 +31,9 @@ class Page implements PageInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="text")
+     * @ORM\Column(name="body", type="text")
      */
-    private $content;
+    private $body;
 
     /**
      * @return int
@@ -45,7 +45,7 @@ class Page implements PageInterface
 
     /**
      * @param int $id
-     * @return Page
+     * @return Content
      */
     public function setId($id)
     {
@@ -63,7 +63,7 @@ class Page implements PageInterface
 
     /**
      * @param string $title
-     * @return Page
+     * @return Content
      */
     public function setTitle($title)
     {
@@ -74,18 +74,18 @@ class Page implements PageInterface
     /**
      * @return string
      */
-    public function getContent()
+    public function getBody()
     {
-        return $this->content;
+        return $this->body;
     }
 
     /**
-     * @param string $content
-     * @return Page
+     * @param string $body
+     * @return Content
      */
-    public function setContent($content)
+    public function setBody($body)
     {
-        $this->content = $content;
+        $this->body = $body;
         return $this;
     }
 }
