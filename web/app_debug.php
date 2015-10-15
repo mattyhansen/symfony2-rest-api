@@ -10,6 +10,7 @@ use Symfony\Component\Debug\Debug;
 
 // This check prevents access to debug front controllers that are deployed by accident to production servers.
 // Feel free to remove this, extend it, or make something more sophisticated.
+
 //TODO: enable this for production
 /*
 if (isset($_SERVER['HTTP_CLIENT_IP'])
@@ -21,13 +22,20 @@ if (isset($_SERVER['HTTP_CLIENT_IP'])
 }
 */
 
-$loader = require_once __DIR__.'/../app/bootstrap.php.cache';
+/**
+ * Use autoload instead of bootstrap.php.cache to provide better debugging
+ */
+//$loader = require_once __DIR__.'/../app/bootstrap.php.cache';
+$loader = require_once __DIR__ . '/../app/autoload.php';
 Debug::enable();
 
 require_once __DIR__.'/../app/AppKernel.php';
 
 $kernel = new AppKernel('dev', true);
-$kernel->loadClassCache();
+/**
+ * Comment out loadClassCache to provide better debugging
+ */
+//$kernel->loadClassCache();
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();
