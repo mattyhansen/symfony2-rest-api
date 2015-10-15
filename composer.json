@@ -16,7 +16,12 @@
         "symfony/monolog-bundle": "~2.4",
         "sensio/distribution-bundle": "~4.0",
         "sensio/framework-extra-bundle": "^3.0.2",
-        "incenteev/composer-parameter-handler": "~2.0"
+        "incenteev/composer-parameter-handler": "~2.0",
+        
+        "doctrine/doctrine-fixtures-bundle": "^2.2",
+        "friendsofsymfony/rest-bundle": "2.0.*@dev",
+        "jms/serializer-bundle": "^1.0",
+        "nelmio/api-doc-bundle": "^2.9"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
@@ -41,7 +46,10 @@
         ]
     },
     "config": {
-        "bin-dir": "bin"
+        "bin-dir": "bin",
+        "process-timeout": 600,
+        "preferred-install": "dist",
+        "github-protocols": ["https"]
     },
     "extra": {
         "symfony-app-dir": "app",
