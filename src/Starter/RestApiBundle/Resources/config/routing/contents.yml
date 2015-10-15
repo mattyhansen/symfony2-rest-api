@@ -1,0 +1,6 @@
+contents_get:
+    pattern: /{id}
+    defaults: { _controller: StarterRestApiBundle:Content:getContent, _format: json }
+    methods: GET
+    requirements:
+        id: \d+

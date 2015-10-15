@@ -1,0 +1,4 @@
+contents:
+    type:     rest
+    resource: "@StarterRestApiBundle/Resources/config/routing/contents.yml"
+    prefix:   /contents
