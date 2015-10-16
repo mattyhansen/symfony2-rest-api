@@ -3,7 +3,7 @@
 class ApiContentPage extends ApiBasePage
 {
     // include url of current page
-    public static $URL = '/api/pages';
+    public static $URL = '/api/contents';
 
     /**
      * Declare UI map for this page here. CSS or XPath allowed.

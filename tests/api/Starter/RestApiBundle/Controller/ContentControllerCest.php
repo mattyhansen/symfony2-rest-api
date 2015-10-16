@@ -19,7 +19,7 @@ class ContentControllerCest
     {
         $i->wantTo('ensure getting an invalid Content id returns a 404 code');
 
-        $i->sendGET('/api/contents/555');
+        $i->sendGET(ApiContentPage::route('555'));
         $i->seeResponseCodeIs(Response::HTTP_NOT_FOUND);
         $i->seeResponseIsJson();
     }
@@ -28,7 +28,7 @@ class ContentControllerCest
     {
         $i->wantTo('ensure getting a valid Content id returns a 200 code');
 
-        $i->sendGET('/api/contents/1.json');
+        $i->sendGET(ApiContentPage::route('1.json'));
         $i->seeResponseCodeIs(Response::HTTP_OK);
         $i->seeResponseIsJson();
     }
@@ -37,7 +37,7 @@ class ContentControllerCest
     {
         $i->wantTo('ensure default response type is json');
 
-        $i->sendGET('/api/contents/1');
+        $i->sendGET(ApiContentPage::route('1'));
         $i->seeResponseCodeIs(Response::HTTP_OK);
         $i->seeResponseIsJson();
     }
