@@ -4,6 +4,7 @@ namespace Starter\RestApiBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -14,6 +15,19 @@ class ContentController extends FOSRestController
 {
 
     /**
+     * Returns content when given a valid id
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Retrieves content by id",
+     *  output = "Starter\RestApiBundle\Entity\Content",
+     *  section="Contents",
+     *  statusCodes={
+     *         200="Returned when successful",
+     *         404="Returned when the requested Content is not found"
+     *     }
+     * )
+     *
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
