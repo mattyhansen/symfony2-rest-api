@@ -1,9 +1,10 @@
 <?php
+namespace Page;
 
-class ApiContentPage extends ApiBasePage
+class ApiContent extends ApiBase
 {
     // include url of current page
-    public static $URL = '/api/contents';
+    public static $URL = '/api/contents/';
 
     /**
      * Declare UI map for this page here. CSS or XPath allowed.
@@ -14,7 +15,7 @@ class ApiContentPage extends ApiBasePage
     /**
      * Basic route example for your current URL
      * You can append any additional parameter to URL
-     * and use it in tests like: EditPage::route('/123-post');
+     * and use it in tests like: Page\Edit::route('/123-post');
      */
     public static function route($param, $withEnvironment = false, $withDomain = false)
     {

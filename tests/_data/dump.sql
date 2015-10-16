@@ -1,8 +1,8 @@
 /*
+SQLyog Ultimate v12.15 (64 bit)
 MySQL - 5.6.19-0ubuntu0.14.04.1 : Database - symfony2_rest_api
 *********************************************************************
-*/
-
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -25,13 +25,13 @@ CREATE TABLE `content` (
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `body` longtext COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `content` */
 
-insert  into `content`(`id`,`title`,`body`) values 
-
-(1,'home','<h1>Home</h1>\r\n<p>Welcome</p>');
+insert  into `content`(`id`,`title`,`body`) values 
+(1,'home','<h1>Home</h1>\r\n<p>Welcome</p>'),
+(2,'about','<h1>About</h1>\r\n<p>stuff</p>');
 
 /*Table structure for table `migration_versions` */
 
@@ -44,8 +44,7 @@ CREATE TABLE `migration_versions` (
 
 /*Data for the table `migration_versions` */
 
-insert  into `migration_versions`(`version`) values 
-
+insert  into `migration_versions`(`version`) values 
 ('20151015055640');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

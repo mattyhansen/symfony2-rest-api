@@ -19,17 +19,8 @@ class ContentControllerCest
     {
         $i->wantTo('ensure getting an invalid Content id returns a 404 code');
 
-        $i->sendGET(ApiContentPage::route('555'));
+        $i->sendGET(Page\ApiContent::route('555'));
         $i->seeResponseCodeIs(Response::HTTP_NOT_FOUND);
-        $i->seeResponseIsJson();
-    }
-
-    public function getValidContent(ApiTester $i)
-    {
-        $i->wantTo('ensure getting a valid Content id returns a 200 code');
-
-        $i->sendGET(ApiContentPage::route('1.json'));
-        $i->seeResponseCodeIs(Response::HTTP_OK);
         $i->seeResponseIsJson();
     }
 
@@ -37,8 +28,24 @@ class ContentControllerCest
     {
         $i->wantTo('ensure default response type is json');
 
-        $i->sendGET(ApiContentPage::route('1'));
+        $i->sendGET(Page\ApiContent::route('1'));
         $i->seeResponseCodeIs(Response::HTTP_OK);
         $i->seeResponseIsJson();
+    }
+
+    public function getValidContent(ApiTester $i)
+    {
+        foreach ($this->validContentProvider() as $id => $data) {
+            $i->sendGET(Page\ApiContent::route($id . '.json'));
+            $i->seeResponseCodeIs(Response::HTTP_OK);
+            $i->seeResponseIsJson();
+
+            $i->seeResponseContainsJson($data);
+        }
+    }
+
+    private function validContentProvider()
+    {
+        return [1 => ['title' => 'home'], 2 => ['title' => 'about']];
     }
 }
