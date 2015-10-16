@@ -3,7 +3,7 @@
 namespace Starter\RestApiBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
-use FOS\RestBundle\View\View;
+use FOS\RestBundle\Controller\Annotations\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -28,8 +28,9 @@ class ContentController extends FOSRestController
      *     }
      * )
      *
+     * @View()
+     *
      * @param $id
-     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function getContentAction($id)
     {
@@ -39,8 +40,7 @@ class ContentController extends FOSRestController
         if ($content === null) {
             throw new NotFoundHttpException();
         }
-        $view = new View($content);
 
-        return $this->get('fos_rest.view_handler')->handle($view);
+        return $content;
     }
 }
