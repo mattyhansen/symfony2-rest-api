@@ -31,6 +31,7 @@ class ContentController extends FOSRestController
      * @View()
      *
      * @param $id
+     * @return \Starter\RestApiBundle\Entity\Content
      */
     public function getContentAction($id)
     {
