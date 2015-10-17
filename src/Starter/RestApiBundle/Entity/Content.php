@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="Starter\RestApiBundle\Repository\ContentRepository")
- * @ORM\Table(name="content")
+ * @ORM\Table(name="contents")
  */
 class Content implements ContentInterface
 {
