@@ -18,6 +18,4 @@ interface ContentInterface
      * @return mixed
      */
     public function getBody();
-
-
 }

@@ -1,1 +1,12 @@
 services:
+    starter.rest_api_bundle.content_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - Starter\RestApiBundle\Entity\Content
+
+    starter.rest_api_bundle.content_handler:
+        class: Starter\RestApiBundle\Handler\ContentHandler
+        arguments:
+            - @starter.rest_api_bundle.content_repository

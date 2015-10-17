@@ -35,13 +35,32 @@ class ContentController extends FOSRestController
      */
     public function getContentAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $content = $em->getRepository('StarterRestApiBundle:Content')->find($id);
+        return $this->getOr404($id);
+    }
+
+    /**
+     * //TODO: move to BaseController
+     *
+     * @param $id
+     * @return mixed
+     */
+    private function getOr404($id)
+    {
+        $content = $this->getHandler()->get($id);
 
         if ($content === null) {
             throw new NotFoundHttpException();
         }
 
         return $content;
+    }
+
+    /**
+     * @return \Starter\RestApiBundle\Handler\ContentHandler
+     */
+    private function getHandler()
+    {
+        $handler = $this->get('starter.rest_api_bundle.content_handler');
+        return $handler;
     }
 }
