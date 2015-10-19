@@ -44,6 +44,56 @@ class ContentControllerCest
         }
     }
 
+    public function getContentsCollection(ApiTester $i)
+    {
+        $i->sendGET(Page\ApiContent::$URL);
+        $i->seeResponseCodeIs(Response::HTTP_OK);
+        $i->seeResponseIsJson();
+        $i->seeResponseContainsJson(array(
+            array(
+                'id' => 1,
+                'title'  => 'home',
+            ),
+            array(
+                'id' => 2,
+                'title'  => 'about',
+            )
+        ));
+    }
+
+    public function getContentsCollectionWithLimit(ApiTester $i)
+    {
+        $i->sendGET(Page\ApiContent::route('?limit=1'));
+        $i->seeResponseCodeIs(Response::HTTP_OK);
+        $i->seeResponseIsJson();
+        $i->seeResponseContainsJson(array(
+            array(
+                'id' => 1,
+                'title'  => 'home',
+            ),
+        ));
+    }
+
+    public function getContentsCollectionWithOffset(ApiTester $i)
+    {
+        $i->sendGET(Page\ApiContent::route('?offset=1'));
+        $i->seeResponseCodeIs(Response::HTTP_OK);
+        $i->seeResponseIsJson();
+        $i->seeResponseContainsJson(array(
+            'title'  => 'about'
+        ));
+    }
+
+    public function getContentsCollectionWithLimitAndOffset(ApiTester $i)
+    {
+        $i->sendGET(Page\ApiContent::route('?offset=1&limit=3'));
+        $i->seeResponseCodeIs(Response::HTTP_OK);
+        $i->seeResponseIsJson();
+        $i->seeResponseContainsJson(array(
+            'title'  => 'about'
+        ));
+    }
+
     private function validContentProvider()
     {
         return [1 => ['title' => 'home'], 2 => ['title' => 'about']];

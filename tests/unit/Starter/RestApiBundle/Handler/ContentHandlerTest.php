@@ -48,6 +48,22 @@ class ContentHandlerTest extends \PHPUnit_Framework_TestCase
         static::assertNull($handler->get(100000));
     }
 
+    public function testCanGetAll()
+    {
+        $data = [1,2];
+
+        $repo = $this->getMockRepository();
+        $repo->expects(static::once())
+            ->method('findBy')
+            ->will(static::returnValue($data));
+
+        $handler = $this->getHandler($repo);
+        static::assertEquals(
+            $data,
+            $handler->all(1, 1)
+        );
+    }
+
     /**
      * @return PHPUnit_Framework_MockObject_MockObject
      */

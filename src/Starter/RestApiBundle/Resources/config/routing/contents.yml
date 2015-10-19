@@ -1,7 +1,13 @@
 # TODO: maybe remove this and dynamically get the routes from the controller
-contents_get:
-    pattern: /{id}
+content_get:
+    pattern: /{id}.{_format}
     defaults: { _controller: StarterRestApiBundle:Content:getContent, _format: json }
     methods: GET
     requirements:
         id: \d+
+
+# TODO: maybe remove this and dynamically get the routes from the controller
+contents_get:
+    pattern: .{_format}
+    defaults: { _controller: StarterRestApiBundle:Content:getContents, _format: json }
+    methods: GET

@@ -3,8 +3,10 @@
 namespace Starter\RestApiBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
-use Starter\RestApiBundle\Handler\HandlerInterface;
+//use FOS\RestBundle\Routing\ClassResourceInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
+use Starter\RestApiBundle\Handler\HandlerInterface;
 
 /**
  * Class BaseController
