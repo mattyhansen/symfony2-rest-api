@@ -4,18 +4,31 @@ namespace Starter\RestApiBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\View;
+use FOS\RestBundle\Routing\ClassResourceInterface;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
+ *
+ * By using "implements ClassResourceInterface" we can omit the Class name from the action methods
+ * "class ContentController extends FOSRestController implements ClassResourceInterface"
+ * For example, "getAction" instead of "getContentAction" and "cgetAction" instead of "getContentsAction"
+ * see: http://symfony.com/doc/master/bundles/FOSRestBundle/5-automatic-route-generation_single-restful-controller.html#implicit-resource-name-definition
+ *
+ * Using this controller as the routing.yml resource, will tell Symfony2 to automatically generate proper REST routes
+ * from this controller action names.
+ * Notice "type: rest" option is required so that the RestBundle can find which routes are supported.
+ * see: http://symfony.com/doc/master/bundles/FOSRestBundle/5-automatic-route-generation_single-restful-controller.html#single-restful-controller-routes
+ *
  * Class ContentController
  * @package Starter\RestApiBundle\Controller
  */
-class ContentController extends FOSRestController
+class ContentController extends BaseController
 {
 
     /**
      * Returns content when given a valid id
+     * //TODO: use "public function getAction($id)" if "implements ClassResourceInterface"
      *
      * @ApiDoc(
      *  resource=true,
@@ -32,27 +45,11 @@ class ContentController extends FOSRestController
      *
      * @param $id
      * @return \Starter\RestApiBundle\Entity\Content
+     * @throws NotFoundHttpException
      */
     public function getContentAction($id)
     {
-        return $this->getOr404($id);
-    }
-
-    /**
-     * //TODO: move to BaseController
-     *
-     * @param $id
-     * @return mixed
-     */
-    private function getOr404($id)
-    {
-        $content = $this->getHandler()->get($id);
-
-        if ($content === null) {
-            throw new NotFoundHttpException();
-        }
-
-        return $content;
+        return $this->getOr404($id, $this->getHandler());
     }
 
     /**

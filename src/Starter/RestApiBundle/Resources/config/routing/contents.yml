@@ -1,3 +1,4 @@
+# TODO: maybe remove this and dynamically get the routes from the controller
 contents_get:
     pattern: /{id}
     defaults: { _controller: StarterRestApiBundle:Content:getContent, _format: json }
