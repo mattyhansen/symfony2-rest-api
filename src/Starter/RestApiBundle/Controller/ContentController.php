@@ -24,6 +24,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * Class ContentController
  * @package Starter\RestApiBundle\Controller
  */
+//class ContentController extends BaseController
 class ContentController extends BaseController
 {
 
@@ -44,10 +45,12 @@ class ContentController extends BaseController
      * @View()
      *
      * @param $id
+     *
      * @return \Starter\RestApiBundle\Entity\Content
+     *
      * @throws NotFoundHttpException
      */
-    public function getContentAction($id)
+    public function getAction($id)
     {
         /**
          * Use "public function getAction($id)" if "implements ClassResourceInterface" for dynamic routing
@@ -77,9 +80,10 @@ class ContentController extends BaseController
      *
      * @param Request $request
      * @param ParamFetcherInterface $paramFetcher
+     *
      * @return array
      */
-    public function getContentsAction(Request $request, ParamFetcherInterface $paramFetcher)
+    public function cgetAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
         /**
          * Ensure "fos_rest: param_fetcher_listener: true" is set in the config.xml to allow for paramFetcher
@@ -90,6 +94,24 @@ class ContentController extends BaseController
         $offset = $paramFetcher->get('offset');
         return $this->getHandler()->all($limit, $offset);
     }
+
+    /**
+     * @param $id
+     *
+     * @return mixed
+     *
+     * @throws NotFoundHttpException
+     */
+//    protected function getOr404($id)
+//    {
+//        $content = $this->getHandler()->get($id);
+//
+//        if ($content === null) {
+//            throw new NotFoundHttpException();
+//        }
+//
+//        return $content;
+//    }
 
     /**
      * @return \Starter\RestApiBundle\Handler\ContentHandler
