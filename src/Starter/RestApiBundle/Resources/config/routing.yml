@@ -1,13 +1,13 @@
 # TODO: maybe remove this and dynamically get the routes from the controller
-contents:
-    type:     rest
-    resource: "@StarterRestApiBundle/Resources/config/routing/contents.yml"
-    prefix:   /contents
+#contents:
+#    type:     rest
+#    resource: "@StarterRestApiBundle/Resources/config/routing/contents.yml"
+#    prefix:   /contents
 
 #Using this controller as the routing.yml resource, will tell Symfony2 to automatically generate proper REST routes
 #from this controller action names.
 #Notice "type: rest" option is required so that the RestBundle can find which routes are supported.
 #see: http://symfony.com/doc/master/bundles/FOSRestBundle/5-automatic-route-generation_single-restful-controller.html#single-restful-controller-routes
-#contents:
-#    type:     rest
-#    resource: @StarterRestApiBundle\Controller\ContentController
+contents:
+    type:     rest
+    resource: @StarterRestApiBundle/Controller/ContentController.php
