@@ -94,6 +94,25 @@ class ContentControllerCest
         ));
     }
 
+    public function postWithBadFieldsReturn400ErrorCode(ApiTester $i)
+    {
+        $i->sendPOST(Page\ApiContent::$URL, ['bad_field' => 'qwerty']);
+        $i->seeResponseCodeIs(Response::HTTP_BAD_REQUEST);
+    }
+
+    public function goodPostReturns201WithHeader(ApiTester $i)
+    {
+        // add the time to the title so it's unique(ish)
+        $title = 'api testing ' . date('H:i:s');
+        $i->sendPOST(Page\ApiContent::$URL, ['title' => $title, 'body' => 'test has passed']);
+
+        $id = $i->grabFromDatabase('contents', 'id', ['title' => $title]);
+
+        $i->seeResponseCodeIs(Response::HTTP_CREATED);
+        $i->canSeeHttpHeader('Location', Page\ApiContent::route('/' . $id));
+    }
+
+
     private function validContentProvider()
     {
         return [1 => ['title' => 'home'], 2 => ['title' => 'about']];

@@ -1,6 +1,6 @@
 <?php
 
-namespace Starter\RestApiBundle\Form;
+namespace Starter\RestApiBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,8 +22,8 @@ class ContentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('body')
+            ->add('title', 'text')
+            ->add('body', 'text')
         ;
     }
     

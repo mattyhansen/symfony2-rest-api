@@ -6,7 +6,10 @@ use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Starter\RestApiBundle\Entity\Content;
+use Starter\RestApiBundle\Form\Type\ContentType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -81,6 +84,31 @@ class ContentController extends BaseController
         $limit = $paramFetcher->get('limit');
         $offset = $paramFetcher->get('offset');
         return $this->getHandler()->all($limit, $offset);
+    }
+
+    public function postAction(Request $request)
+    {
+        $form = $this->createForm(new ContentType(), new Content(), array(
+            'method' => 'POST',
+            'csrf_protection' => false
+        ));
+
+        $form->submit($request->request->all());
+
+        if (!$form->isValid()) {
+            // exit($form->getErrors());
+            return $form;
+        }
+
+        $content = $form->getData();
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($content);
+        $em->flush();
+
+        return $this->redirectView(
+            $this->generateUrl('get_content', array('id' => $content->getId())),
+            Response::HTTP_CREATED
+        );
     }
 
     /**

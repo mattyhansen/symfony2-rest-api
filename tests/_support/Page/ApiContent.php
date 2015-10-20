@@ -16,6 +16,11 @@ class ApiContent extends ApiBase
      * Basic route example for your current URL
      * You can append any additional parameter to URL
      * and use it in tests like: Page\Edit::route('/123-post');
+     *
+     * @param $param
+     * @param bool|false $withEnvironment
+     * @param bool|false $withDomain
+     * @return string
      */
     public static function route($param, $withEnvironment = false, $withDomain = false)
     {
