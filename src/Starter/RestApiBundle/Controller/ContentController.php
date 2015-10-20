@@ -10,17 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- *
- * By using "implements ClassResourceInterface" we can omit the Class name from the action methods
- * "class ContentController extends FOSRestController implements ClassResourceInterface"
- * For example, "getAction" instead of "getContentAction" and "cgetAction" instead of "getContentsAction"
- * see: http://symfony.com/doc/master/bundles/FOSRestBundle/5-automatic-route-generation_single-restful-controller.html#implicit-resource-name-definition
- *
- * Using this controller as the routing.yml resource, will tell Symfony2 to automatically generate proper REST routes
- * from this controller action names.
- * Notice "type: rest" option is required so that the RestBundle can find which routes are supported.
- * see: http://symfony.com/doc/master/bundles/FOSRestBundle/5-automatic-route-generation_single-restful-controller.html#single-restful-controller-routes
- *
  * Class ContentController
  * @package Starter\RestApiBundle\Controller
  */
@@ -89,29 +78,10 @@ class ContentController extends BaseController
          * Ensure "fos_rest: param_fetcher_listener: true" is set in the config.xml to allow for paramFetcher
          * see https://github.com/FriendsOfSymfony/FOSRestBundle/blob/master/Resources/doc/3-listener-support.rst
          */
-
         $limit = $paramFetcher->get('limit');
         $offset = $paramFetcher->get('offset');
         return $this->getHandler()->all($limit, $offset);
     }
-
-    /**
-     * @param $id
-     *
-     * @return mixed
-     *
-     * @throws NotFoundHttpException
-     */
-//    protected function getOr404($id)
-//    {
-//        $content = $this->getHandler()->get($id);
-//
-//        if ($content === null) {
-//            throw new NotFoundHttpException();
-//        }
-//
-//        return $content;
-//    }
 
     /**
      * @return \Starter\RestApiBundle\Handler\ContentHandler
