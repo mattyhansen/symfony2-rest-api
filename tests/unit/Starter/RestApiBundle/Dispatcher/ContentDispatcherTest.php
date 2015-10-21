@@ -1,6 +1,6 @@
 <?php
 
-class ContentHandlerTest extends \PHPUnit_Framework_TestCase
+class ContentDispatcherTest extends \PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
@@ -14,10 +14,10 @@ class ContentHandlerTest extends \PHPUnit_Framework_TestCase
     public function testCanConstruct()
     {
         $repo = $this->getMockRepository();
-        $handler = $this->getHandler($repo);
+        $dispatcher = $this->getDispatcher($repo);
         static::assertInstanceOf(
-            '\Starter\RestApiBundle\Handler\ContentHandler',
-            $handler
+            '\Starter\RestApiBundle\Dispatcher\ContentDispatcher',
+            $dispatcher
         );
     }
 
@@ -29,11 +29,11 @@ class ContentHandlerTest extends \PHPUnit_Framework_TestCase
         $repo->expects(static::once())
             ->method('find')
             ->will(static::returnValue($data));
-        $handler = $this->getHandler($repo);
+        $dispatcher = $this->getDispatcher($repo);
 
         static::assertEquals(
             $data,
-            $handler->get(1)
+            $dispatcher->get(1)
         );
     }
 
@@ -43,9 +43,9 @@ class ContentHandlerTest extends \PHPUnit_Framework_TestCase
         $repo->expects(static::once())
             ->method('find')
             ->will(static::returnValue(null));
-        $handler = $this->getHandler($repo);
+        $dispatcher = $this->getDispatcher($repo);
 
-        static::assertNull($handler->get(100000));
+        static::assertNull($dispatcher->get(100000));
     }
 
     public function testCanGetAll()
@@ -57,10 +57,10 @@ class ContentHandlerTest extends \PHPUnit_Framework_TestCase
             ->method('findBy')
             ->will(static::returnValue($data));
 
-        $handler = $this->getHandler($repo);
+        $dispatcher = $this->getDispatcher($repo);
         static::assertEquals(
             $data,
-            $handler->all(1, 1)
+            $dispatcher->all(1, 1)
         );
     }
 
@@ -77,11 +77,11 @@ class ContentHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @param $repo
-     * @return \Starter\RestApiBundle\Handler\ContentHandler
+     * @return \Starter\RestApiBundle\Dispatcher\ContentDispatcher
      */
-    private function getHandler($repo)
+    private function getDispatcher($repo)
     {
-        $handler = new \Starter\RestApiBundle\Handler\ContentHandler($repo);
-        return $handler;
+        $dispatcher = new \Starter\RestApiBundle\Dispatcher\ContentDispatcher($repo);
+        return $dispatcher;
     }
 }
