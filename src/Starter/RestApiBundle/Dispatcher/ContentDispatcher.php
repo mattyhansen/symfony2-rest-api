@@ -1,17 +1,17 @@
 <?php
 
-namespace Starter\RestApiBundle\Handler;
+namespace Starter\RestApiBundle\Dispatcher;
 
 use Starter\RestApiBundle\Repository\ContentRepository;
 
 /**
- * Class ContentHandler
- * @package Starter\RestApiBundle\Handler
+ * Class ContentDispatcher
+ * @package Starter\RestApiBundle\Dispatcher
  */
-class ContentHandler extends BaseHandler
+class ContentDispatcher extends BaseDispatcher
 {
     /**
-     * ContentHandler constructor.
+     * ContentDispatcher constructor.
      * @param ContentRepository $contentRepository
      */
     public function __construct(ContentRepository $contentRepository)

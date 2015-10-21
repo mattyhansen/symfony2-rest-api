@@ -48,7 +48,7 @@ class ContentController extends BaseController
          * Use "public function getAction($id)" if "implements ClassResourceInterface" for dynamic routing
          */
 
-        return $this->getOr404($id, $this->getHandler());
+        return $this->getOr404($id, $this->getDispatcher());
     }
 
     /**
@@ -83,7 +83,7 @@ class ContentController extends BaseController
          */
         $limit = $paramFetcher->get('limit');
         $offset = $paramFetcher->get('offset');
-        return $this->getHandler()->all($limit, $offset);
+        return $this->getDispatcher()->all($limit, $offset);
     }
 
     public function postAction(Request $request)
@@ -112,11 +112,11 @@ class ContentController extends BaseController
     }
 
     /**
-     * @return \Starter\RestApiBundle\Handler\ContentHandler
+     * @return \Starter\RestApiBundle\Dispatcher\ContentDispatcher
      */
-    private function getHandler()
+    private function getDispatcher()
     {
-        $handler = $this->get('starter.rest_api_bundle.content_handler');
-        return $handler;
+        $dispatcher = $this->get('starter.rest_api_bundle.content_dispatcher');
+        return $dispatcher;
     }
 }

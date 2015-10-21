@@ -1,10 +1,10 @@
 <?php
 
-namespace Starter\RestApiBundle\Handler;
+namespace Starter\RestApiBundle\Dispatcher;
 
 use Starter\RestApiBundle\Model\ContentInterface;
 
-interface HandlerInterface
+interface DispatcherInterface
 {
     /**
      * @param $id

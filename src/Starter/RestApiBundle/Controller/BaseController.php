@@ -4,7 +4,7 @@ namespace Starter\RestApiBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
-use Starter\RestApiBundle\Handler\BaseHandler;
+use Starter\RestApiBundle\Dispatcher\BaseDispatcher;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -28,15 +28,15 @@ class BaseController extends FOSRestController implements ClassResourceInterface
 
     /**
      * @param $id
-     * @param BaseHandler $handler
+     * @param BaseDispatcher $dispatcher
      *
      * @return mixed
      *
      * @throws NotFoundHttpException
      */
-    protected function getOr404($id, BaseHandler $handler)
+    protected function getOr404($id, BaseDispatcher $dispatcher)
     {
-        $content = $handler->get($id);
+        $content = $dispatcher->get($id);
 
         if ($content === null) {
             throw new NotFoundHttpException();

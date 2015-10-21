@@ -6,7 +6,7 @@ services:
         arguments:
             - Starter\RestApiBundle\Entity\Content
 
-    starter.rest_api_bundle.content_handler:
-        class: Starter\RestApiBundle\Handler\ContentHandler
+    starter.rest_api_bundle.content_dispatcher:
+        class: Starter\RestApiBundle\Dispatcher\ContentDispatcher
         arguments:
             - @starter.rest_api_bundle.content_repository

@@ -1,10 +1,14 @@
 <?php
 
-namespace Starter\RestApiBundle\Handler;
+namespace Starter\RestApiBundle\Dispatcher;
 
 use Doctrine\ORM\EntityRepository;
 
-class BaseHandler implements HandlerInterface
+/**
+ * Class BaseDispatcher
+ * @package Starter\RestApiBundle\Dispatcher
+ */
+class BaseDispatcher implements DispatcherInterface
 {
     /**
      * @var EntityRepository
