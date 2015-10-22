@@ -48,7 +48,7 @@ class ContentController extends BaseController
          * Use "public function getAction($id)" if "implements ClassResourceInterface" for dynamic routing
          */
 
-        return $this->getOr404($id, $this->getDispatcher());
+        return $this->getResponse($id, $this->getDispatcher());
     }
 
     /**

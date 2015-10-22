@@ -34,14 +34,14 @@ class BaseController extends FOSRestController implements ClassResourceInterface
      *
      * @throws NotFoundHttpException
      */
-    protected function getOr404($id, BaseDispatcher $dispatcher)
+    protected function getResponse($id, BaseDispatcher $dispatcher)
     {
-        $content = $dispatcher->get($id);
+        $response = $dispatcher->get($id);
 
-        if ($content === null) {
+        if ($response === null) {
             throw new NotFoundHttpException();
         }
 
-        return $content;
+        return $response;
     }
 }
