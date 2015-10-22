@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="Starter\RestApiBundle\Repository\ContentRepository")
  * @ORM\Table(name="contents")
  */
-class Content implements ContentInterface
+class Content extends BaseEntity implements ContentInterface
 {
     /**
      * @var integer
