@@ -10,3 +10,17 @@ services:
         class: Starter\RestApiBundle\Dispatcher\ContentDispatcher
         arguments:
             - @starter.rest_api_bundle.content_repository
+            - @starter.rest_api_bundle.form.handler.content_form_handler
+
+    # http://symfony.com/doc/current/book/forms.html#defining-your-forms-as-services
+    starter.rest_api_bundle.form.type.content:
+        class: Starter\RestApiBundle\Form\Type\ContentType
+        tags:
+            - { name: form.type, alias: content_form }
+
+    starter.rest_api_bundle.form.handler.content_form_handler:
+        class: Starter\RestApiBundle\Form\Handler\FormHandler
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @form.factory
+            - @starter.rest_api_bundle.form.type.content

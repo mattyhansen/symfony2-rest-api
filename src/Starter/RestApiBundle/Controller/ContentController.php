@@ -6,11 +6,14 @@ use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Starter\RestApiBundle\Entity\Content;
-use Starter\RestApiBundle\Form\Type\ContentType;
+use Symfony\Component\Form\Exception\AlreadySubmittedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+
+use Starter\RestApiBundle\Entity\Content;
+use Starter\RestApiBundle\Exception\InvalidFormException;
 
 /**
  * Class ContentController
@@ -86,29 +89,26 @@ class ContentController extends BaseController
         return $this->getDispatcher()->all($limit, $offset);
     }
 
+    /**
+     * @View()
+     *
+     * @param Request $request
+     * @return \FOS\RestBundle\View\View|null
+     *
+     * @throws AlreadySubmittedException
+     * @throws InvalidOptionsException
+     */
     public function postAction(Request $request)
     {
-        $form = $this->createForm(new ContentType(), new Content(), array(
-            'method' => 'POST',
-            'csrf_protection' => false
-        ));
+        try {
+            /** @var Content $content */
+            $content = $this->getDispatcher()->post($request->request->all());
+            $routeOptions = ['id' => $content->getId(), '_format' => $request->get('_format')];
+            return $this->redirectView($this->generateUrl('get_content', $routeOptions), Response::HTTP_CREATED);
 
-        $form->submit($request->request->all());
-
-        if (!$form->isValid()) {
-            // exit($form->getErrors());
-            return $form;
+        } catch (InvalidFormException $e) {
+            return $e->getForm();
         }
-
-        $content = $form->getData();
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($content);
-        $em->flush();
-
-        return $this->redirectView(
-            $this->generateUrl('get_content', array('id' => $content->getId())),
-            Response::HTTP_CREATED
-        );
     }
 
     /**

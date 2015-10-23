@@ -81,7 +81,11 @@ class ContentDispatcherTest extends \PHPUnit_Framework_TestCase
      */
     private function getDispatcher($repo)
     {
-        $dispatcher = new \Starter\RestApiBundle\Dispatcher\ContentDispatcher($repo);
+        $handler = $this->getMockBuilder('Starter\RestApiBundle\Form\Handler\FormHandler')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $dispatcher = new \Starter\RestApiBundle\Dispatcher\ContentDispatcher($repo, $handler);
         return $dispatcher;
     }
 }

@@ -3,7 +3,9 @@
 use Symfony\Component\HttpFoundation\Response;
 use \ApiTester;
 
-
+/**
+ * Class ContentControllerCest
+ */
 class ContentControllerCest
 {
     public function _before(ApiTester $i)

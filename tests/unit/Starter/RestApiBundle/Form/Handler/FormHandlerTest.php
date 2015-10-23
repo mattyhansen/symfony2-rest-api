@@ -10,7 +10,13 @@ use \Starter\RestApiBundle\Form\Type\ContentType;
  */
 class FormHandlerTest extends \Codeception\TestCase\Test
 {
+    /**
+     * @var Symfony\Component\DependencyInjection\Container
+     */
     private $serviceContainer;
+    /**
+     * @var Symfony\Component\Form\FormFactoryInterface
+     */
     private $formFactory;
 
     protected function setUp()
@@ -27,6 +33,14 @@ class FormHandlerTest extends \Codeception\TestCase\Test
     }
 
     // tests
+
+    public function testCanGrabFromServiceContainer()
+    {
+        static::assertInstanceOf(
+            'Starter\RestApiBundle\Form\Handler\FormHandler',
+            $this->serviceContainer->get('starter.rest_api_bundle.form.handler.content_form_handler')
+        );
+    }
 
     /**
      * @expectedException PHPUnit_Framework_Exception
@@ -71,18 +85,16 @@ class FormHandlerTest extends \Codeception\TestCase\Test
     }
 
 
-    /*
     public function testProcessFormReturnsValidObjectOnSuccess()
     {
         $formHandler = new FormHandler($this->getMockEntityManager(), $this->formFactory, new ContentType());
 
+        $parameters = ['title' => 'main title', 'body' => 'yada yada yada'];
         static::assertInstanceOf(
             '\Starter\RestApiBundle\Entity\Content',
-            $formHandler->processForm(new \Starter\RestApiBundle\Entity\Content(), [], 'POST')
+            $formHandler->processForm(new \Starter\RestApiBundle\Entity\Content(), $parameters, 'POST')
         );
     }
-    */
-
 
     /**
      * @return \Doctrine\Common\Persistence\ObjectManager

@@ -54,12 +54,14 @@ class FormHandler
         $form->submit($parameters, $method !== 'PATCH');
 
         if (!$form->isValid()) {
-//            exit($form->getErrors());
+            //exit($form->getErrors());
             throw new InvalidFormException($form);
         }
 
         $data = $form->getData();
         $this->entityManager->persist($data);
         $this->entityManager->flush();
+
+        return $data;
     }
 }
