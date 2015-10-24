@@ -50,7 +50,6 @@ class ContentController extends BaseController
         /**
          * Use "public function getAction($id)" if "implements ClassResourceInterface" for dynamic routing
          */
-
         return $this->getResponse($id, $this->getDispatcher());
     }
 
@@ -104,12 +103,35 @@ class ContentController extends BaseController
             /** @var Content $content */
             $content = $this->getDispatcher()->post($request->request->all());
             $routeOptions = ['id' => $content->getId(), '_format' => $request->get('_format')];
-            return $this->redirectView($this->generateUrl('get_content', $routeOptions), Response::HTTP_CREATED);
+            return $this->routeRedirectView('get_content', $routeOptions, Response::HTTP_CREATED);
 
         } catch (InvalidFormException $e) {
             return $e->getForm();
         }
     }
+
+    public function putAction(Request $request, $id)
+    {
+        //return new Response(null, Response::HTTP_BAD_REQUEST);
+        /** @var Content $content */
+        $content = $this->getDispatcher()->get($id);
+        try {
+            if ($content === null) {
+                $statusCode = Response::HTTP_CREATED;
+                $content = $this->getDispatcher()->post($request->request->all());
+            } else {
+                $statusCode = Response::HTTP_NO_CONTENT;
+                $content = $this->getDispatcher()->put($content, $request->request->all());
+            }
+            $routeOptions = ['id' => $content->getId(), '_format' => $request->get('_format')];
+            return $this->routeRedirectView('get_content', $routeOptions, $statusCode);
+
+        } catch (InvalidFormException $e) {
+            return $e->getForm();
+        }
+    }
+
+
 
     /**
      * @return \Starter\RestApiBundle\Dispatcher\ContentDispatcher

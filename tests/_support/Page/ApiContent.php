@@ -22,7 +22,7 @@ class ApiContent extends ApiBase
      * @param bool|false $withDomain
      * @return string
      */
-    public static function route($param, $withEnvironment = false, $withDomain = false)
+    public static function route($param = '', $withEnvironment = true, $withDomain = false)
     {
         $route = static::$URL.$param;
 
@@ -35,5 +35,17 @@ class ApiContent extends ApiBase
         }
 
         return $route;
+    }
+
+    /**
+     * Full route is required when the location returns the full url
+     * For example, // full route is required when the location returns the full url
+     *
+     * @param string $param
+     * @return string
+     */
+    public static function fullRoute($param = '')
+    {
+        return self::route($param, true, true);
     }
 }

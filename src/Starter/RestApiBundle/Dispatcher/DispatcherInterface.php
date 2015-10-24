@@ -2,6 +2,7 @@
 
 namespace Starter\RestApiBundle\Dispatcher;
 
+use Starter\RestApiBundle\Entity\BaseEntity;
 use Starter\RestApiBundle\Model\ContentInterface;
 
 interface DispatcherInterface
@@ -24,4 +25,11 @@ interface DispatcherInterface
      * @return mixed
      */
     public function post(array $parameters);
+
+    /**
+     * @param BaseEntity $baseEntity
+     * @param array $parameters
+     * @return mixed
+     */
+    public function put(BaseEntity $baseEntity, array $parameters);
 }
