@@ -92,8 +92,9 @@ fos_rest:
     view:
         view_response_listener: 'force'
     format_listener:
+        # only allow json format (for now)
         rules:
-            - { path: ^/api, priorities: [ json, xml ], fallback_format: json, prefer_extension: true }
+            - { path: ^/api, priorities: [ json ], fallback_format: json, prefer_extension: true }
     routing_loader:
         include_format: false
     param_fetcher_listener: true
