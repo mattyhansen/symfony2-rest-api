@@ -101,6 +101,16 @@ class ContentControllerCest
         ));
     }
 
+    public function getContentsCollectionWithHateoasSelfHref(ApiTester $i)
+    {
+        $i->sendGET(Page\ApiContent::route());
+        $i->seeResponseCodeIs(Response::HTTP_OK);
+        $i->seeResponseIsJson();
+        $i->seeResponseContainsJson(array(
+            'href'  => '/api/contents/1'
+        ));
+    }
+
     /**
      * POST TESTING
      */

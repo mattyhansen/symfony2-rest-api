@@ -5,10 +5,13 @@ namespace Starter\RestApiBundle\Entity;
 use Starter\RestApiBundle\Model\ContentInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @ORM\Entity(repositoryClass="Starter\RestApiBundle\Repository\ContentRepository")
  * @ORM\Table(name="contents")
+ *
+ * @Hateoas\Relation("self", href = "expr('/api/contents/' ~ object.getId())")
  */
 class Content extends BaseEntity implements ContentInterface
 {
