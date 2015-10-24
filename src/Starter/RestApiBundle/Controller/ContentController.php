@@ -89,6 +89,18 @@ class ContentController extends BaseController
     }
 
     /**
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Creates a new Content",
+     *  input = "Starter\RestApiBundle\Form\Type\ContentFormType",
+     *  output = "Starter\RestApiBundle\Entity\Content",
+     *  section="Contents",
+     *  statusCodes={
+     *         201="Returned when a new Content has been successfully created",
+     *         400="Returned when the posted data is invalid"
+     *     }
+     * )
+     *
      * @View()
      *
      * @param Request $request
@@ -110,6 +122,24 @@ class ContentController extends BaseController
         }
     }
 
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Replaces an existing Content",
+     *  input = "Starter\RestApiBundle\Form\Type\ContentFormType",
+     *  output = "Starter\RestApiBundle\Entity\Content",
+     *  section="Contents",
+     *  statusCodes={
+     *         201="Returned when a new Content has been successfully created",
+     *         204="Returned when an existing Content has been successfully updated",
+     *         400="Returned when the posted data is invalid"
+     *     }
+     * )
+     *
+     * @param Request $request
+     * @param $id
+     * @return array|\FOS\RestBundle\View\View|null
+     */
     public function putAction(Request $request, $id)
     {
         //return new Response(null, Response::HTTP_BAD_REQUEST);
