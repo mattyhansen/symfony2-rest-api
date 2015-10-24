@@ -7,3 +7,4 @@
 contents:
     type:     rest
     resource: @StarterRestApiBundle/Controller/ContentController.php
+    name_prefix:  api_1_ # naming collision
