@@ -87,17 +87,31 @@ doctrine_migrations:
 
 sensio_framework_extra:
     view: { annotations: false }
+    router: { annotations: true }
+    request: { converters: true }
 
 fos_rest:
-    #disable_csrf_role: ROLE_API
+    param_fetcher_listener: true
     view:
         view_response_listener: 'force'
+        formats:
+            xml:  true
+            json: true
+        templating_formats:
+            html: true
     format_listener:
-        # only allow json format (for now)
         rules:
-            - { path: ^/api, priorities: [ json ], fallback_format: json, prefer_extension: true }
-    routing_loader:
-        include_format: false
-    param_fetcher_listener: true
+            - { path: ^/api, priorities: [ json, html, xml ], fallback_format: ~, prefer_extension: true }
+    allowed_methods_listener: true
+    access_denied_listener:
+        json: true
+    exception:
+        codes:
+            'Symfony\Component\Routing\Exception\ResourceNotFoundException': 404
+            'Doctrine\ORM\OptimisticLockException': HTTP_CONFLICT
+        messages:
+            'Symfony\Component\Routing\Exception\ResourceNotFoundException': true
+    body_listener: true
+    disable_csrf_role: ROLE_API
 
 nelmio_api_doc: ~
