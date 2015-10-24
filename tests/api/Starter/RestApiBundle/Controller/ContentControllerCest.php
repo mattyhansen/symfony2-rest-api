@@ -119,7 +119,7 @@ class ContentControllerCest
         $i->seeResponseCodeIs(Response::HTTP_BAD_REQUEST);
     }
 
-    public function goodPostReturns201WithHeader(ApiTester $i)
+    public function postWithValidDataReturns201WithHeader(ApiTester $i)
     {
         // add the time to the title so it's unique(ish)
         $title = 'api testing ' . date('H:i:s');
