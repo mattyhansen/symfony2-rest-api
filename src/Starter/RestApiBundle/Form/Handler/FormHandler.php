@@ -48,6 +48,7 @@ class FormHandler
     public function processForm($object, array $parameters, $method)
     {
         // if no html, then no csrf protection is okay
+        //TODO: perhaps set "'csrf_protection' => false" in the config.xml instead (eg. disable_csrf_role: ROLE_API)
         $options = ['method' => $method, 'csrf_protection' => false];
         $form = $this->formFactory->create($this->formType, $object, $options);
 
