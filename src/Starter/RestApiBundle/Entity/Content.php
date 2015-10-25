@@ -11,7 +11,13 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * @ORM\Entity(repositoryClass="Starter\RestApiBundle\Repository\ContentRepository")
  * @ORM\Table(name="contents")
  *
- * @Hateoas\Relation("self", href = "expr('/api/contents/' ~ object.getId())")
+ * @Hateoas\Relation(
+ *     "self",
+ *     href = @Hateoas\Route(
+ *         "get_content",
+ *         parameters={"id" = "expr(object.getId())"}
+ *     )
+ * )
  */
 class Content extends BaseEntity implements ContentInterface
 {
