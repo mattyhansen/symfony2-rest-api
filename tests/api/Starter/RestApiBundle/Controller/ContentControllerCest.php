@@ -51,6 +51,14 @@ class ContentControllerCest
         }
     }
 
+    public function getValidContentsHtml(ApiTester $i)
+    {
+        $i->sendGET(Page\ApiContent::route('/1.html'));
+        $i->seeResponseCodeIs(Response::HTTP_OK);
+        $i->seeResponseContains('HTML Output');
+    }
+
+
     public function getContentsCollection(ApiTester $i)
     {
         $i->sendGET(Page\ApiContent::route());
@@ -66,13 +74,6 @@ class ContentControllerCest
                 'title'  => 'about',
             )
         ));
-    }
-
-    public function getContentsHtmlCollection(ApiTester $i)
-    {
-        $i->sendGET(Page\ApiContent::route('/1.html'));
-        $i->seeResponseCodeIs(Response::HTTP_OK);
-        $i->seeResponseContains('HTML Output');
     }
 
     public function getContentsCollectionWithLimit(ApiTester $i)
@@ -110,7 +111,7 @@ class ContentControllerCest
 
     public function getContentsCollectionWithHateoasSelfHref(ApiTester $i)
     {
-        $i->sendGET(Page\ApiContent::route());
+        $i->sendGET(Page\ApiContent::route('', false));
         $i->seeResponseCodeIs(Response::HTTP_OK);
         $i->seeResponseIsJson();
         $i->seeResponseContainsJson(array(
