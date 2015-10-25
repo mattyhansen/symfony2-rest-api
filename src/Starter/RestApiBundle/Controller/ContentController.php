@@ -19,7 +19,6 @@ use Starter\RestApiBundle\Exception\InvalidFormException;
  * Class ContentController
  * @package Starter\RestApiBundle\Controller
  */
-//class ContentController extends BaseController
 class ContentController extends BaseController
 {
 
@@ -68,6 +67,8 @@ class ContentController extends BaseController
      *      {"name"="offset", "dataType"="integer", "required"=false, "description"="the record number to start results at"}
      *  }
      * )
+     *
+     * @View()
      *
      * @QueryParam(name="limit", requirements="\d+", default="10", description="our limit")
      * @QueryParam(name="offset", requirements="\d+", nullable=true, default="0", description="our offset")
@@ -160,8 +161,6 @@ class ContentController extends BaseController
             return $e->getForm();
         }
     }
-
-
 
     /**
      * @return \Starter\RestApiBundle\Dispatcher\ContentDispatcher
