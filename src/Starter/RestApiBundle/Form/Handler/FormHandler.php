@@ -70,4 +70,16 @@ class FormHandler
 
         return $data;
     }
+
+    /**
+     * @param $object
+     * @return bool
+     */
+    public function delete($object)
+    {
+        $this->entityManager->remove($object);
+        $this->entityManager->flush();
+
+        return true;
+    }
 }

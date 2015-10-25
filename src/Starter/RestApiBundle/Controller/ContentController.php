@@ -214,6 +214,32 @@ class ContentController extends BaseController
         }
     }
 
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Deletes an existing Content",
+     *  section="Contents",
+     *  requirements={
+     *      {"name"="id", "dataType"="integer", "requirement"="\d+", "description"="the id of the Content to delete"}
+     *  },
+     *  statusCodes={
+     *         204="Returned when an existing Content has been successfully deleted",
+     *         404="Returned when trying to delete a non existent Content"
+     *     }
+     * )
+     *
+     * @param Request $request
+     * @param $id
+     */
+    public function deleteAction(Request $request, $id)
+    {
+        /** @var Content $content */
+        $content = $this->getResponse($id, $this->getDispatcher());
+        $this->getDispatcher()->delete($content);
+    }
+    
+
     /**
      * @return \Starter\RestApiBundle\Dispatcher\ContentDispatcher
      */

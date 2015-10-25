@@ -85,4 +85,13 @@ class BaseDispatcher implements DispatcherInterface
     {
         return $this->formHandler->processForm($baseEntity, $parameters, 'PATCH');
     }
+
+    /**
+     * @param BaseEntity $baseEntity
+     * @return mixed
+     */
+    public function delete(BaseEntity $baseEntity)
+    {
+        return $this->formHandler->delete($baseEntity);
+    }
 }

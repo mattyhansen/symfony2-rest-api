@@ -39,4 +39,10 @@ interface DispatcherInterface
      * @return mixed
      */
     public function patch(BaseEntity $baseEntity, array $parameters);
+
+    /**
+     * @param BaseEntity $baseEntity
+     * @return mixed
+     */
+    public function delete(BaseEntity $baseEntity);
 }

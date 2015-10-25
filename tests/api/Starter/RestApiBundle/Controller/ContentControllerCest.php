@@ -254,6 +254,32 @@ class ContentControllerCest
         $i->assertEquals($originalBody, $existingBody);
     }
 
+    /**
+     * DELETE TESTING
+     */
+
+    public function deleteWithInvalidArtistReturns404(ApiTester $i)
+    {
+        $i->sendDELETE(Page\ApiContent::route('/555555.json'));
+
+        $i->seeResponseCodeIs(Response::HTTP_NOT_FOUND);
+    }
+
+    public function deleteWithValidArtistReturns204(ApiTester $i)
+    {
+        $i->seeInDatabase('contents', array(
+            'id'    => 1,
+        ));
+
+        $i->sendDELETE(Page\ApiContent::route('/1.json'));
+
+        $i->dontSeeInDatabase('contents', array(
+            'id'    => 1,
+        ));
+
+        $i->seeResponseCodeIs(Response::HTTP_NO_CONTENT);
+    }
+
 
     /**
      * @return array
