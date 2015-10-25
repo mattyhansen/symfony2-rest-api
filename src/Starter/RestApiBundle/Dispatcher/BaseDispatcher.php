@@ -75,4 +75,14 @@ class BaseDispatcher implements DispatcherInterface
     {
         return $this->formHandler->processForm($baseEntity, $parameters, 'PUT');
     }
+
+    /**
+     * @param BaseEntity $baseEntity
+     * @param array $parameters
+     * @return \Symfony\Component\Form\FormInterface
+     */
+    public function patch(BaseEntity $baseEntity, array $parameters)
+    {
+        return $this->formHandler->processForm($baseEntity, $parameters, 'PATCH');
+    }
 }

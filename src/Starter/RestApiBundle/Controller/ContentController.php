@@ -6,9 +6,10 @@ use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Symfony\Component\Form\Exception\AlreadySubmittedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
+use Symfony\Component\Form\Exception\AlreadySubmittedException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 
@@ -115,7 +116,10 @@ class ContentController extends BaseController
         try {
             /** @var Content $content */
             $content = $this->getDispatcher()->post($request->request->all());
-            $routeOptions = ['id' => $content->getId(), '_format' => $request->get('_format')];
+            $routeOptions = [
+                'id' => $content->getId(),
+                '_format' => $request->get('_format')
+            ];
             return $this->routeRedirectView('get_content', $routeOptions, Response::HTTP_CREATED);
 
         } catch (InvalidFormException $e) {
@@ -140,6 +144,9 @@ class ContentController extends BaseController
      * @param Request $request
      * @param $id
      * @return array|\FOS\RestBundle\View\View|null
+     *
+     * @throws AlreadySubmittedException
+     * @throws InvalidOptionsException
      */
     public function putAction(Request $request, $id)
     {
@@ -154,8 +161,53 @@ class ContentController extends BaseController
                 $statusCode = Response::HTTP_NO_CONTENT;
                 $content = $this->getDispatcher()->put($content, $request->request->all());
             }
-            $routeOptions = ['id' => $content->getId(), '_format' => $request->get('_format')];
+            $routeOptions = [
+                'id' => $content->getId(),
+                '_format' => $request->get('_format')
+            ];
             return $this->routeRedirectView('get_content', $routeOptions, $statusCode);
+
+        } catch (InvalidFormException $e) {
+            return $e->getForm();
+        }
+    }
+
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Patches a Content",
+     *  input = "Starter\RestApiBundle\Form\Type\ContentFormType",
+     *  output = "Starter\RestApiBundle\Entity\Content",
+     *  section="Contents",
+     *  statusCodes={
+     *         201="Returned when a new Content has been successfully created",
+     *         400="Returned when the posted data is invalid"
+     *     }
+     * )
+     *
+     * //TODO: patch doesn't follow the RESTful convention 100% correctly, but it's close enough (see http://williamdurand.fr/2014/02/14/please-do-not-patch-like-an-idiot/)
+     *
+     * @View()
+     *
+     * @param Request $request
+     * @return \FOS\RestBundle\View\View|null
+     *
+     * @throws AlreadySubmittedException
+     * @throws InvalidOptionsException
+     * @throws NotFoundHttpException
+     */
+    public function patchAction(Request $request, $id)
+    {
+        try {
+            /** @var Content $content */
+            $content = $this->getResponse($id, $this->getDispatcher());
+            $content = $this->getDispatcher()->patch($content, $request->request->all());
+            $routeOptions = [
+                'id' => $content->getId(),
+                '_format' => $request->get('_format')
+            ];
+            return $this->routeRedirectView('get_content', $routeOptions, Response::HTTP_NO_CONTENT);
 
         } catch (InvalidFormException $e) {
             return $e->getForm();

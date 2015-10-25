@@ -212,6 +212,50 @@ class ContentControllerCest
 
 
     /**
+     * PATCH TESTING
+     */
+
+    public function patchWithInvalidIdReturns404(ApiTester $i)
+    {
+        $i->sendPATCH(Page\ApiContent::route('/5555.json'), ['qwerty' => 'abcdef']);
+        $i->seeResponseCodeIs(Response::HTTP_NOT_FOUND);
+    }
+
+    public function patchWithValidIdAndInvalidDataReturns400ErrorCode(ApiTester $i)
+    {
+        $i->sendPATCH(Page\ApiContent::route('/2.json'), ['qwerty' => 'abcdef']);
+        $i->seeResponseCodeIs(Response::HTTP_BAD_REQUEST);
+    }
+
+    public function patchWithValidIdAndValidDataReturns204(ApiTester $i)
+    {
+        $title = 'valid id - newly patched title';
+        $originalBody = "<h1>About</h1>\r\n<p>stuff</p>";
+
+        // send the patch
+        $i->sendPATCH(Page\ApiContent::route('/2.json'), array(
+            'title' => $title,
+        ));
+
+        // get the new title and existing body
+        $newTitle = $i->grabFromDatabase('contents', 'title', array(
+            'id'  => 2
+        ));
+
+        $existingBody = $i->grabFromDatabase('contents', 'body', array(
+            'id'  => 2
+        ));
+
+        // ensure the response code, header location, title is correct, and body hasn't changed
+        $i->seeResponseCodeIs(Response::HTTP_NO_CONTENT);
+        // full route is required because the location returns the full url
+        $i->canSeeHttpHeader('Location', Page\ApiContent::fullRoute('/2'));
+        $i->assertEquals($title, $newTitle);
+        $i->assertEquals($originalBody, $existingBody);
+    }
+
+
+    /**
      * @return array
      */
     private function validContentProvider()

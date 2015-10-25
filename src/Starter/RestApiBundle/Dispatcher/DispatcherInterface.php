@@ -32,4 +32,11 @@ interface DispatcherInterface
      * @return mixed
      */
     public function put(BaseEntity $baseEntity, array $parameters);
+
+    /**
+     * @param BaseEntity $baseEntity
+     * @param array $parameters
+     * @return mixed
+     */
+    public function patch(BaseEntity $baseEntity, array $parameters);
 }

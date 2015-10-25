@@ -32,9 +32,6 @@ class FormHandler
         $this->formType = $formType;
     }
 
-
-// not type hinting BaseEntity because we set the form type in the constructor and symfony error is returned if invalid object
-// public function processForm(BaseEntity $object, array $parameters, $method)
     /**
      * @param $object
      * @param array $parameters
@@ -44,6 +41,9 @@ class FormHandler
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException (if any given option is not applicable to the given type)
      * @throws \Symfony\Component\Form\Exception\AlreadySubmittedException (if the form has already been submitted)
      * @throws InvalidFormException (if the form is invalid)
+     *
+     * // not type hinting BaseEntity because we set the form type in the constructor and symfony error is returned if invalid object
+     * // public function processForm(BaseEntity $object, array $parameters, $method)
      */
     public function processForm($object, array $parameters, $method)
     {
@@ -52,6 +52,11 @@ class FormHandler
         $options = ['method' => $method, 'csrf_protection' => false];
         $form = $this->formFactory->create($this->formType, $object, $options);
 
+        /**
+         * The second parameter ($clearMissing) to allow patch being applied atomically (only patched fields are saved)
+         * //TODO: patch doesn't follow the RESTful convention 100% correctly, but it's close enough (see http://williamdurand.fr/2014/02/14/please-do-not-patch-like-an-idiot/)
+         *
+         */
         $form->submit($parameters, $method !== 'PATCH');
 
         if (!$form->isValid()) {
