@@ -36,7 +36,7 @@ class ContentController extends BaseController
      *     }
      * )
      *
-     * @View()
+     * @View("data.html.twig")
      *
      * @param $id
      *

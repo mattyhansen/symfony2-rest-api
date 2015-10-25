@@ -68,6 +68,13 @@ class ContentControllerCest
         ));
     }
 
+    public function getContentsHtmlCollection(ApiTester $i)
+    {
+        $i->sendGET(Page\ApiContent::route('/1.html'));
+        $i->seeResponseCodeIs(Response::HTTP_OK);
+        $i->seeResponseContains('HTML Output');
+    }
+
     public function getContentsCollectionWithLimit(ApiTester $i)
     {
         $i->sendGET(Page\ApiContent::route('?limit=1'));
