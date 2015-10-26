@@ -1,14 +1,15 @@
 <?php
 
-namespace Starter\RestApiBundle\Dispatcher;
+namespace Starter\Content\Dispatcher;
 
-use Starter\RestApiBundle\Entity\Content;
+use Starter\RestApiBundle\Dispatcher\BaseDispatcher;
 use Starter\RestApiBundle\Form\Handler\FormHandler;
-use Starter\RestApiBundle\Repository\ContentRepository;
+use Starter\RestApiBundle\Entity\Content;
+use Starter\Content\Repository\ContentRepository;
 
 /**
  * Class ContentDispatcher
- * @package Starter\RestApiBundle\Dispatcher
+ * @package Starter\Content\Dispatcher
  */
 class ContentDispatcher extends BaseDispatcher
 {

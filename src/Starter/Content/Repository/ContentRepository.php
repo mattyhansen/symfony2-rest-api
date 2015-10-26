@@ -1,6 +1,6 @@
 <?php
 
-namespace Starter\RestApiBundle\Repository;
+namespace Starter\Content\Repository;
 
 use Doctrine\ORM\EntityRepository;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Starter\RestApiBundle\Form\Type;
+namespace Starter\Content\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  *
  * Generated with "app/console doctrine:generate:form StarterRestApiBundle:Content" (and then moved to Type folder)
  *
- * @package Starter\RestApiBundle\Form
+ * @package Starter\Content\Form
  */
 class ContentType extends AbstractType
 {

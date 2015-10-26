@@ -2,13 +2,13 @@
 
 namespace Starter\RestApiBundle\Entity;
 
-use Starter\RestApiBundle\Model\ContentInterface;
+use Starter\Content\Model\ContentInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
- * @ORM\Entity(repositoryClass="Starter\RestApiBundle\Repository\ContentRepository")
+ * @ORM\Entity(repositoryClass="Starter\Content\Repository\ContentRepository")
  * @ORM\Table(name="contents")
  *
  * @Hateoas\Relation(

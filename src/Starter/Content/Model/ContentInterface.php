@@ -1,6 +1,6 @@
 <?php
 
-namespace Starter\RestApiBundle\Model;
+namespace Starter\Content\Model;
 
 interface ContentInterface
 {

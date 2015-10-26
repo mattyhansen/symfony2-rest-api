@@ -50,7 +50,8 @@ class ContentController extends BaseController
         /**
          * Use "public function getAction($id)" if "implements ClassResourceInterface" for dynamic routing
          */
-        return $this->getResponse($id, $this->getDispatcher());
+        //TODO: use provider class to get
+        return $this->getResponse($id, $this->dispatcher());
     }
 
     /**
@@ -87,14 +88,14 @@ class ContentController extends BaseController
          */
         $limit = $paramFetcher->get('limit');
         $offset = $paramFetcher->get('offset');
-        return $this->getDispatcher()->all($limit, $offset);
+        return $this->dispatcher()->all($limit, $offset);
     }
 
     /**
      * @ApiDoc(
      *  resource=true,
      *  description="Creates a new Content",
-     *  input = "Starter\RestApiBundle\Form\Type\ContentFormType",
+     *  input = "Starter\Content\Form\Type\ContentFormType",
      *  output = "Starter\RestApiBundle\Entity\Content",
      *  section="Contents",
      *  statusCodes={
@@ -115,7 +116,7 @@ class ContentController extends BaseController
     {
         try {
             /** @var Content $content */
-            $content = $this->getDispatcher()->post($request->request->all());
+            $content = $this->dispatcher()->post($request->request->all());
             $routeOptions = [
                 'id' => $content->getId(),
                 '_format' => $request->get('_format')
@@ -131,7 +132,7 @@ class ContentController extends BaseController
      * @ApiDoc(
      *  resource=true,
      *  description="Replaces an existing Content",
-     *  input = "Starter\RestApiBundle\Form\Type\ContentFormType",
+     *  input = "Starter\Content\Form\Type\ContentFormType",
      *  output = "Starter\RestApiBundle\Entity\Content",
      *  section="Contents",
      *  statusCodes={
@@ -152,14 +153,14 @@ class ContentController extends BaseController
     {
         //return new Response(null, Response::HTTP_BAD_REQUEST);
         /** @var Content $content */
-        $content = $this->getDispatcher()->get($id);
+        $content = $this->dispatcher()->get($id);
         try {
             if ($content === null) {
                 $statusCode = Response::HTTP_CREATED;
-                $content = $this->getDispatcher()->post($request->request->all());
+                $content = $this->dispatcher()->post($request->request->all());
             } else {
                 $statusCode = Response::HTTP_NO_CONTENT;
-                $content = $this->getDispatcher()->put($content, $request->request->all());
+                $content = $this->dispatcher()->put($content, $request->request->all());
             }
             $routeOptions = [
                 'id' => $content->getId(),
@@ -177,7 +178,7 @@ class ContentController extends BaseController
      * @ApiDoc(
      *  resource=true,
      *  description="Patches a Content",
-     *  input = "Starter\RestApiBundle\Form\Type\ContentFormType",
+     *  input = "Starter\Content\Form\Type\ContentFormType",
      *  output = "Starter\RestApiBundle\Entity\Content",
      *  section="Contents",
      *  statusCodes={
@@ -191,6 +192,7 @@ class ContentController extends BaseController
      * @View()
      *
      * @param Request $request
+     * @param $id
      * @return \FOS\RestBundle\View\View|null
      *
      * @throws AlreadySubmittedException
@@ -201,8 +203,8 @@ class ContentController extends BaseController
     {
         try {
             /** @var Content $content */
-            $content = $this->getResponse($id, $this->getDispatcher());
-            $content = $this->getDispatcher()->patch($content, $request->request->all());
+            $content = $this->getResponse($id, $this->dispatcher());
+            $content = $this->dispatcher()->patch($content, $request->request->all());
             $routeOptions = [
                 'id' => $content->getId(),
                 '_format' => $request->get('_format')
@@ -231,19 +233,21 @@ class ContentController extends BaseController
      *
      * @param Request $request
      * @param $id
+     *
+     * @throws NotFoundHttpException
      */
     public function deleteAction(Request $request, $id)
     {
         /** @var Content $content */
-        $content = $this->getResponse($id, $this->getDispatcher());
-        $this->getDispatcher()->delete($content);
+        $content = $this->getResponse($id, $this->dispatcher());
+        $this->dispatcher()->delete($content);
     }
     
 
     /**
-     * @return \Starter\RestApiBundle\Dispatcher\ContentDispatcher
+     * @return \Starter\Content\Dispatcher\ContentDispatcher
      */
-    private function getDispatcher()
+    private function dispatcher()
     {
         $dispatcher = $this->get('starter.rest_api_bundle.content_dispatcher');
         return $dispatcher;
