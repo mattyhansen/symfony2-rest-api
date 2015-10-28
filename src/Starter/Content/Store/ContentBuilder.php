@@ -2,7 +2,7 @@
 
 namespace Starter\Content\Store;
 
-class ContentQueryModel extends ContentValueObject
+class ContentBuilder extends ContentValueObject
 {
 
     public function getContent()
