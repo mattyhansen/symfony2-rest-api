@@ -3,23 +3,14 @@
 namespace Starter\RestApiBundle\Dispatcher;
 
 use Starter\RestApiBundle\Entity\BaseEntity;
-use Starter\RestApiBundle\Model\ContentInterface;
+use Starter\Content\Model\ContentInterface;
 
+/**
+ * Interface DispatcherInterface
+ * @package Starter\RestApiBundle\Dispatcher
+ */
 interface DispatcherInterface
 {
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public function get($id);
-
-    /**
-     * @param $limit
-     * @param $offset
-     * @return mixed
-     */
-    public function all($limit, $offset);
-
     /**
      * @param array $parameters
      * @return mixed

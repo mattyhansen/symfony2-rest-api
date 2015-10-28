@@ -12,6 +12,12 @@ services:
             - @starter.rest_api_bundle.content_repository
             - @starter.rest_api_bundle.form.handler.content_form_handler
 
+    starter.rest_api_bundle.content_provider:
+        class: Starter\Content\Provider\ContentProvider
+        arguments:
+            - @starter.rest_api_bundle.content_repository
+            - @starter.rest_api_bundle.form.handler.content_form_handler
+
     # http://symfony.com/doc/current/book/forms.html#defining-your-forms-as-services
     starter.rest_api_bundle.form.type.content:
         class: Starter\Content\Form\Type\ContentType

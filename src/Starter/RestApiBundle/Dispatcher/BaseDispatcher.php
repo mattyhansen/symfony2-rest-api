@@ -32,28 +32,6 @@ class BaseDispatcher implements DispatcherInterface
     protected $object;
 
     /**
-     * @param $id
-     *
-     * @return mixed
-     */
-    public function get($id)
-    {
-        return $this->repository->find($id);
-
-    }
-
-    /**
-     * @param $limit
-     * @param $offset
-     *
-     * @return array
-     */
-    public function all($limit, $offset)
-    {
-        return $this->repository->findBy([], [], $limit, $offset);
-    }
-
-    /**
      * @param array $parameters
      * @return \Symfony\Component\Form\FormInterface
      *

@@ -4,8 +4,12 @@ namespace Starter\RestApiBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
-use Starter\RestApiBundle\Dispatcher\BaseDispatcher;
+use Starter\RestApiBundle\Provider\BaseProvider;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
+use Starter\RestApiBundle\Dispatcher\DispatcherInterface;
+use Starter\RestApiBundle\Provider\ProviderInterface;
 
 /**
  * Class BaseController
@@ -27,16 +31,45 @@ class BaseController extends FOSRestController implements ClassResourceInterface
 {
 
     /**
+     * @var ContainerInterface
+     *
+     * @api
+     */
+    protected $container;
+
+    /**
+     * @var DispatcherInterface
+     */
+    protected $dispatcher;
+
+    /**
+     * @var ProviderInterface
+     */
+    protected $provider;
+
+    /**
+     * Sets the Container associated with this Controller.
+     *
+     * @param ContainerInterface $container A ContainerInterface instance
+     *
+     * @api
+     */
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
+    }
+
+    /**
      * @param $id
-     * @param BaseDispatcher $dispatcher
+     * @param BaseProvider $provider
      *
      * @return mixed
      *
      * @throws NotFoundHttpException
      */
-    protected function getResponse($id, BaseDispatcher $dispatcher)
+    protected function getOr404($id)
     {
-        $response = $dispatcher->get($id);
+        $response = $this->provider->get($id);
 
         if ($response === null) {
             throw new NotFoundHttpException();

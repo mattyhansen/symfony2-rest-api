@@ -8,6 +8,7 @@ use FOS\RestBundle\Request\ParamFetcherInterface;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 use Symfony\Component\Form\Exception\AlreadySubmittedException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -22,6 +23,21 @@ use Starter\RestApiBundle\Exception\InvalidFormException;
  */
 class ContentController extends BaseController
 {
+
+    /**
+     * Sets the Container associated with this Controller.
+     *
+     * @param ContainerInterface $container A ContainerInterface instance
+     *
+     * @api
+     */
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
+        $this->dispatcher = $this->get('starter.rest_api_bundle.content_dispatcher');
+        $this->provider = $this->get('starter.rest_api_bundle.content_provider');
+
+    }
 
     /**
      * Returns content when given a valid id
@@ -51,7 +67,7 @@ class ContentController extends BaseController
          * Use "public function getAction($id)" if "implements ClassResourceInterface" for dynamic routing
          */
         //TODO: use provider class to get
-        return $this->getResponse($id, $this->dispatcher());
+        return $this->getOr404($id);
     }
 
     /**
@@ -88,7 +104,7 @@ class ContentController extends BaseController
          */
         $limit = $paramFetcher->get('limit');
         $offset = $paramFetcher->get('offset');
-        return $this->dispatcher()->all($limit, $offset);
+        return $this->provider->all($limit, $offset);
     }
 
     /**
@@ -116,7 +132,7 @@ class ContentController extends BaseController
     {
         try {
             /** @var Content $content */
-            $content = $this->dispatcher()->post($request->request->all());
+            $content = $this->dispatcher->post($request->request->all());
             $routeOptions = [
                 'id' => $content->getId(),
                 '_format' => $request->get('_format')
@@ -153,14 +169,14 @@ class ContentController extends BaseController
     {
         //return new Response(null, Response::HTTP_BAD_REQUEST);
         /** @var Content $content */
-        $content = $this->dispatcher()->get($id);
+        $content = $this->provider->get($id);
         try {
             if ($content === null) {
                 $statusCode = Response::HTTP_CREATED;
-                $content = $this->dispatcher()->post($request->request->all());
+                $content = $this->dispatcher->post($request->request->all());
             } else {
                 $statusCode = Response::HTTP_NO_CONTENT;
-                $content = $this->dispatcher()->put($content, $request->request->all());
+                $content = $this->dispatcher->put($content, $request->request->all());
             }
             $routeOptions = [
                 'id' => $content->getId(),
@@ -203,8 +219,8 @@ class ContentController extends BaseController
     {
         try {
             /** @var Content $content */
-            $content = $this->getResponse($id, $this->dispatcher());
-            $content = $this->dispatcher()->patch($content, $request->request->all());
+            $content = $this->getOr404($id);
+            $content = $this->dispatcher->patch($content, $request->request->all());
             $routeOptions = [
                 'id' => $content->getId(),
                 '_format' => $request->get('_format')
@@ -239,17 +255,7 @@ class ContentController extends BaseController
     public function deleteAction(Request $request, $id)
     {
         /** @var Content $content */
-        $content = $this->getResponse($id, $this->dispatcher());
-        $this->dispatcher()->delete($content);
-    }
-    
-
-    /**
-     * @return \Starter\Content\Dispatcher\ContentDispatcher
-     */
-    private function dispatcher()
-    {
-        $dispatcher = $this->get('starter.rest_api_bundle.content_dispatcher');
-        return $dispatcher;
+        $content = $this->getOr404($id);
+        $this->dispatcher->delete($content);
     }
 }
