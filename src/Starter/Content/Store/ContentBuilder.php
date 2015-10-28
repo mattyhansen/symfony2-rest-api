@@ -2,11 +2,22 @@
 
 namespace Starter\Content\Store;
 
-class ContentBuilder extends ContentValueObject
+/**
+ * Class ContentBuilder
+ * @package Starter\Content\Store
+ */
+class ContentBuilder
 {
 
-    public function getContent()
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getContentValueObject($id)
     {
+        $content = new ContentValueObject();
+        $content->setId($id);
 
+        return $id;
     }
 }
