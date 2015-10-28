@@ -1,7 +1,7 @@
 <?php
 
 use \Starter\RestApiBundle\Form\Handler\FormHandler;
-use \Starter\RestApiBundle\Form\Type\ContentType;
+use \Starter\Content\Form\Type\ContentType;
 
 /**
  * Class FormHandlerTest

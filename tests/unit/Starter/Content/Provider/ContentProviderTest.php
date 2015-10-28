@@ -1,6 +1,6 @@
 <?php
 
-class ContentDispatcherTest extends \PHPUnit_Framework_TestCase
+class ContentProviderTest extends \PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
@@ -14,10 +14,10 @@ class ContentDispatcherTest extends \PHPUnit_Framework_TestCase
     public function testCanConstruct()
     {
         $repo = $this->getMockRepository();
-        $dispatcher = $this->getDispatcher($repo);
+        $provider = $this->getProvider($repo);
         static::assertInstanceOf(
-            '\Starter\RestApiBundle\Dispatcher\ContentDispatcher',
-            $dispatcher
+            '\Starter\Content\Provider\ContentProvider',
+            $provider
         );
     }
 
@@ -29,11 +29,11 @@ class ContentDispatcherTest extends \PHPUnit_Framework_TestCase
         $repo->expects(static::once())
             ->method('find')
             ->will(static::returnValue($data));
-        $dispatcher = $this->getDispatcher($repo);
+        $provider = $this->getProvider($repo);
 
         static::assertEquals(
             $data,
-            $dispatcher->get(1)
+            $provider->get(1)
         );
     }
 
@@ -43,9 +43,9 @@ class ContentDispatcherTest extends \PHPUnit_Framework_TestCase
         $repo->expects(static::once())
             ->method('find')
             ->will(static::returnValue(null));
-        $dispatcher = $this->getDispatcher($repo);
+        $provider = $this->getProvider($repo);
 
-        static::assertNull($dispatcher->get(100000));
+        static::assertNull($provider->get(100000));
     }
 
     public function testCanGetAll()
@@ -57,10 +57,10 @@ class ContentDispatcherTest extends \PHPUnit_Framework_TestCase
             ->method('findBy')
             ->will(static::returnValue($data));
 
-        $dispatcher = $this->getDispatcher($repo);
+        $provider = $this->getProvider($repo);
         static::assertEquals(
             $data,
-            $dispatcher->all(1, 1)
+            $provider->all(1, 1)
         );
     }
 
@@ -69,7 +69,7 @@ class ContentDispatcherTest extends \PHPUnit_Framework_TestCase
      */
     private function getMockRepository()
     {
-        $repo = $this->getMockBuilder('Starter\RestApiBundle\Repository\ContentRepository')
+        $repo = $this->getMockBuilder('Starter\Content\Repository\ContentRepository')
             ->disableOriginalConstructor()
             ->getMock();
         return $repo;
@@ -77,15 +77,15 @@ class ContentDispatcherTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @param $repo
-     * @return \Starter\RestApiBundle\Dispatcher\ContentDispatcher
+     * @return \Starter\Content\Provider\ContentProvider
      */
-    private function getDispatcher($repo)
+    private function getProvider($repo)
     {
         $handler = $this->getMockBuilder('Starter\RestApiBundle\Form\Handler\FormHandler')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $dispatcher = new \Starter\RestApiBundle\Dispatcher\ContentDispatcher($repo, $handler);
-        return $dispatcher;
+        $provider = new \Starter\Content\Provider\ContentProvider($repo, $handler);
+        return $provider;
     }
 }

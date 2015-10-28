@@ -29,7 +29,7 @@ class ContentFormTest extends \Symfony\Component\Form\Test\TypeTestCase
             'body' => 'test2',
         );
 
-        $type = new \Starter\RestApiBundle\Form\Type\ContentType();
+        $type = new \Starter\Content\Form\Type\ContentType();
         $form = $this->factory->create($type);
 
         $object = new \Starter\RestApiBundle\Entity\Content();
