@@ -1,7 +1,7 @@
 <?php
 
-use \Starter\RestApiBundle\Form\Handler\FormHandler;
-use \Starter\RestApiBundle\Form\Type\ContentType;
+use \Starter\AppBundle\Form\Handler\FormHandler;
+use \Starter\Content\Form\Type\ContentType;
 
 /**
  * Class FormHandlerTest
@@ -37,8 +37,8 @@ class FormHandlerTest extends \Codeception\TestCase\Test
     public function testCanGrabFromServiceContainer()
     {
         static::assertInstanceOf(
-            'Starter\RestApiBundle\Form\Handler\FormHandler',
-            $this->serviceContainer->get('starter.rest_api_bundle.form.handler.content_form_handler')
+            'Starter\AppBundle\Form\Handler\FormHandler',
+            $this->serviceContainer->get('starter.app_bundle.form.handler.content_form_handler')
         );
     }
 
@@ -53,7 +53,7 @@ class FormHandlerTest extends \Codeception\TestCase\Test
 
     /**
      * @expectedException Symfony\Component\Form\Exception\LogicException
-     * @expectedExceptionMessageRegExp /Starter\\RestApiBundle\\Entity\\Content/
+     * @expectedExceptionMessageRegExp /Starter\\AppBundle\\Entity\\Content/
      */
     public function testProcessFormThrowsWhenGivenInvalidObjectForAGivenFormType()
     {
@@ -62,7 +62,7 @@ class FormHandlerTest extends \Codeception\TestCase\Test
     }
 
     /**
-     * @expectedException Starter\RestApiBundle\Exception\InvalidFormException
+     * @expectedException Starter\AppBundle\Exception\InvalidFormException
      */
     public function testProcessFormReturnsWithErrorsWhenFormIsNotValid()
     {
@@ -81,7 +81,7 @@ class FormHandlerTest extends \Codeception\TestCase\Test
          * Process Form
          */
         $formHandler = new FormHandler($this->getMockEntityManager(), $formFactory, new ContentType());
-        $formHandler->processForm(new \Starter\RestApiBundle\Entity\Content(), [], 'POST');
+        $formHandler->processForm(new \Starter\AppBundle\Entity\Content(), [], 'POST');
     }
 
 
@@ -91,8 +91,8 @@ class FormHandlerTest extends \Codeception\TestCase\Test
 
         $parameters = ['title' => 'main title', 'body' => 'yada yada yada'];
         static::assertInstanceOf(
-            '\Starter\RestApiBundle\Entity\Content',
-            $formHandler->processForm(new \Starter\RestApiBundle\Entity\Content(), $parameters, 'POST')
+            '\Starter\AppBundle\Entity\Content',
+            $formHandler->processForm(new \Starter\AppBundle\Entity\Content(), $parameters, 'POST')
         );
     }
 

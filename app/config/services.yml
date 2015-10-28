@@ -5,7 +5,7 @@ parameters:
 
 services:
     app.twig_extension:
-        class: Starter\RestApiBundle\Twig\AppExtension
+        class: Starter\AppBundle\Twig\AppExtension
         public: false
         tags:
             - { name: twig.extension }
