@@ -1,0 +1,19 @@
+# Codeception Test Suite Configuration
+
+# suite for acceptance tests.
+# perform tests in browser using the WebDriver or PhpBrowser.
+# If you need both WebDriver and PHPBrowser tests - create a separate suite.
+
+class_name: AcceptanceTester
+modules:
+    enabled:
+        - WebDriver
+#        - PhpBrowser
+        - \Helper\Acceptance
+    config:
+#        PhpBrowser:
+#            url: http://symfony2-rest-api.dev
+        WebDriver:
+            browser: firefox
+            host: 10.0.2.2
+            url: http://symfony2-rest-api.dev

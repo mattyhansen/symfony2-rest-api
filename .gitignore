@@ -38,3 +38,9 @@
 
 # Composer PHAR
 /composer.phar
+
+tests/_output/*
+
+# Selenium
+!bin/selenium
+bin/selenium/*.jar
