@@ -5,5 +5,5 @@ NelmioApiDocBundle:
 
 rest_api:
     type:     rest
-    resource: "@StarterRestApiBundle/Resources/config/routing.yml"
+    resource: "@StarterAppBundle/Resources/config/routing.yml"
     prefix:   /api

@@ -2,9 +2,9 @@
 
 namespace Starter\Content\Dispatcher;
 
-use Starter\RestApiBundle\Dispatcher\BaseDispatcher;
-use Starter\RestApiBundle\Form\Handler\FormHandler;
-use Starter\RestApiBundle\Entity\Content;
+use Starter\AppBundle\Dispatcher\BaseDispatcher;
+use Starter\AppBundle\Form\Handler\FormHandler;
+use Starter\AppBundle\Entity\Content;
 use Starter\Content\Repository\ContentRepository;
 
 /**

@@ -2,9 +2,9 @@
 
 namespace Starter\Content\Provider;
 
-use Starter\RestApiBundle\Provider\BaseProvider;
-use Starter\RestApiBundle\Form\Handler\FormHandler;
-use Starter\RestApiBundle\Entity\Content;
+use Starter\AppBundle\Provider\BaseProvider;
+use Starter\AppBundle\Form\Handler\FormHandler;
+use Starter\AppBundle\Entity\Content;
 use Starter\Content\Repository\ContentRepository;
 
 /**

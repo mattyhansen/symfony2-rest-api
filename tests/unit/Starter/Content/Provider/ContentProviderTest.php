@@ -81,7 +81,7 @@ class ContentProviderTest extends \PHPUnit_Framework_TestCase
      */
     private function getProvider($repo)
     {
-        $handler = $this->getMockBuilder('Starter\RestApiBundle\Form\Handler\FormHandler')
+        $handler = $this->getMockBuilder('Starter\AppBundle\Form\Handler\FormHandler')
             ->disableOriginalConstructor()
             ->getMock();
 

@@ -9,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 /**
  * Class ContentType
  *
- * Generated with "app/console doctrine:generate:form StarterRestApiBundle:Content" (and then moved to Type folder)
+ * Generated with "app/console doctrine:generate:form StarterAppBundle:Content" (and then moved to Type folder)
  *
  * @package Starter\Content\Form
  */
@@ -33,7 +33,7 @@ class ContentType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Starter\RestApiBundle\Entity\Content'
+            'data_class' => 'Starter\AppBundle\Entity\Content'
         ));
     }
 
@@ -42,6 +42,6 @@ class ContentType extends AbstractType
      */
     public function getName()
     {
-        return 'starter_restapibundle_content';
+        return 'starter_AppBundle_content';
     }
 }

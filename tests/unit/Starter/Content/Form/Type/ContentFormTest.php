@@ -32,7 +32,7 @@ class ContentFormTest extends \Symfony\Component\Form\Test\TypeTestCase
         $type = new \Starter\Content\Form\Type\ContentType();
         $form = $this->factory->create($type);
 
-        $object = new \Starter\RestApiBundle\Entity\Content();
+        $object = new \Starter\AppBundle\Entity\Content();
         $object
             ->setTitle($formData['title'])
             ->setBody($formData['body']);
