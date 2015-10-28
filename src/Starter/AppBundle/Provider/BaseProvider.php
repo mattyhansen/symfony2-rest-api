@@ -39,7 +39,6 @@ class BaseProvider implements ProviderInterface
     public function get($id)
     {
         return $this->repository->find($id);
-
     }
 
     /**

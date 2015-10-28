@@ -66,7 +66,6 @@ class ContentController extends BaseController
         /**
          * Use "public function getAction($id)" if "implements ClassResourceInterface" for dynamic routing
          */
-        //TODO: use provider class to get
         return $this->getOr404($id);
     }
 
@@ -203,7 +202,8 @@ class ContentController extends BaseController
      *     }
      * )
      *
-     * //TODO: patch doesn't follow the RESTful convention 100% correctly, but it's close enough (see http://williamdurand.fr/2014/02/14/please-do-not-patch-like-an-idiot/)
+     * //NOTE: This implementation of patch doesn't follow the RESTful convention 100% correctly,
+     *         but is okay for now (see http://williamdurand.fr/2014/02/14/please-do-not-patch-like-an-idiot/)
      *
      * @View()
      *
