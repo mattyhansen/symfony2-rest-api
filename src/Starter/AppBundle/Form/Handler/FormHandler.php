@@ -14,9 +14,11 @@ use Starter\AppBundle\Entity\BaseEntity;
  */
 class FormHandler
 {
-
+    /** @var ObjectManager $entityManager */
     private $entityManager;
+    /** @var FormFactoryInterface $formFactory */
     private $formFactory;
+    /** @var FormTypeInterface $formType */
     private $formType;
 
     /**

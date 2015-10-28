@@ -61,7 +61,6 @@ class BaseController extends FOSRestController implements ClassResourceInterface
 
     /**
      * @param $id
-     * @param BaseProvider $provider
      *
      * @return mixed
      *
